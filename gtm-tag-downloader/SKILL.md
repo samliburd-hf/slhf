@@ -16,8 +16,17 @@ Supports two operating modes:
 1. **Standard Mode (Default)**: Downloads only the tag configuration as `tags/<tagId>_<sanitized_name>.json`.
 2. **Associated Assets Mode (Optional)**: When requested (e.g. "include variables and triggers", "with dependencies"), also extracts and downloads all associated triggers and referenced variables, bundling them under `tags/<tagId>_<sanitized_name>/`.
 
-> [!IMPORTANT]
-> **Environment Rule**: Always use `uv` instead of invoking `python` directly (e.g., `uv run ...`).
+---
+
+## Operational Rules & Invariants
+
+All agents executing this skill MUST strictly adhere to the following directives (detailed in [operational_rules.md](./references/operational_rules.md)):
+
+1. **Python Tooling (`uv`)**: ALWAYS execute helper scripts and Python one-liners with `uv run` (e.g., `uv run <script>`). NEVER invoke raw `python` or `python3`.
+2. **GTM Resource Extraction**: Validate that `accountId`, `containerId`, and `workspaceId` are parsed from the GTM URL before issuing tool calls.
+3. **Strict Read-Only MCP Calls**: Use ONLY `get` and `list` operations on `gtm-mcp-server` (`gtm_tag`, `gtm_trigger`, `gtm_variable`). NEVER execute mutating operations (`create`, `update`, `remove`, `revert`).
+4. **Rate Limit Defense**: Use `action: "list"` with pagination (`itemsPerPage: 20`) for batch variable lookups rather than issuing individual queries.
+5. **Persistence & Presentation**: Save artifacts under `tags/` formatted with 2-space indented JSON, and present results using clickable `file://` links.
 
 ---
 
