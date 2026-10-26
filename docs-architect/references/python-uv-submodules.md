@@ -9,6 +9,7 @@ To defeat single-turn output compression, you MUST document each submodule in it
 ## Step-by-Step Execution Workflow
 
 ### Step 1: Full Repository & Submodule Inventory
+
 1. Read `pyproject.toml`, `pyproject.json` (if present), `uv.lock`, `AGENTS.md` / `GEMINI.md`, and `README.md`.
 2. Enumerate every package/submodule directory under `src/` (or top-level package directories) and read **every** `.py` file (`__init__.py`, `main.py`, helpers) in full.
 3. Map:
@@ -23,7 +24,7 @@ For **each** submodule in `src/` (excluding trivial 1–5 line root build-namesp
 
 Each `docs/<module>.md` file MUST remain in the repository as a standalone reference manual and MUST follow this exact structure:
 
-```markdown
+````markdown
 # 5.X `<module>` Module — <Descriptive Title>
 
 - **Source File(s)**: [`src/<module>/__init__.py`](../src/<module>/__init__.py) (Lines `1–N`)
@@ -36,33 +37,34 @@ Each `docs/<module>.md` file MUST remain in the repository as a standalone refer
 sequenceDiagram
     ...
 ```
+````
 
 1. **<Step 1 Name>**: <Detailed walkthrough with line numbers...>
 2. **<Step 2 Name>**: <Detailed walkthrough with line numbers...>
-...
+   ...
 
 ## Data Models, Constants, & State
 
 | Symbol | Lines | Type / Value | Architectural Purpose |
-| :--- | :--- | :--- | :--- |
-| ... | ... | ... | ... |
+| :----- | :---- | :----------- | :-------------------- |
+| ...    | ...   | ...          | ...                   |
 
-*(If the module has no classes, dataclasses, or module-level constants, explicitly state how state is passed between functions via `argparse.Namespace`, tuples, or dicts.)*
+_(If the module has no classes, dataclasses, or module-level constants, explicitly state how state is passed between functions via `argparse.Namespace`, tuples, or dicts.)_
 
 ## Symbol & Function Inventory
 
-| Symbol | Lines | Signature & Return Type | Detailed Behavior & Side Effects |
-| :--- | :--- | :--- | :--- |
-| `parse_args` | `17–35` | `() -> argparse.Namespace` | ... |
-| ... | ... | ... | ... |
+| Symbol       | Lines   | Signature & Return Type    | Detailed Behavior & Side Effects |
+| :----------- | :------ | :------------------------- | :------------------------------- |
+| `parse_args` | `17–35` | `() -> argparse.Namespace` | ...                              |
+| ...          | ...     | ...                        | ...                              |
 
-*(If any logic runs at module top-level or inside a monolithic `main()`, list every function AND provide a line-by-line phase breakdown table covering 100% of the file's lines.)*
+_(If any logic runs at module top-level or inside a monolithic `main()`, list every function AND provide a line-by-line phase breakdown table covering 100% of the file's lines.)_
 
 ## CLI Flag & Option Mapping Matrix
 
 | CLI Argument / Flag | `argparse` Config (`type`, `nargs`, `default`, `choices`, `action`) | Downstream Library / API Option & Internal Behavior |
-| :--- | :--- | :--- |
-| ... | ... | ... |
+| :------------------ | :------------------------------------------------------------------ | :-------------------------------------------------- |
+| ...                 | ...                                                                 | ...                                                 |
 
 ## Internal Mechanics, Error Handling, & Signal Contract
 
@@ -72,7 +74,8 @@ sequenceDiagram
   - `stdout`: <Exact output emitted for shell pipelining>
   - `stderr`: <Progress, diagnostics, and error messages>
   - Exit Codes: `0` (<success>), `1` (<validation/runtime error>), `130` (<SIGINT / Ctrl+C>)
-```
+
+````
 
 ---
 
@@ -82,7 +85,7 @@ Run `format_docs.py` on all generated `docs/<module>.md` files using `uv run pyt
 
 ```bash
 uv run python /Users/samliburd/.gemini/config/skills/docs-architect/scripts/format_docs.py docs/*.md
-```
+````
 
 - `format_docs.py` automatically normalizes relative links inside `docs/<module>.md` so they resolve accurately from `docs/` (e.g., `../src/<module>/__init__.py` and `../pyproject.toml`) and sanitizes all Mermaid diagrams.
 
@@ -141,6 +144,7 @@ uv run python /Users/samliburd/.gemini/config/skills/docs-architect/scripts/form
 ```
 
 When run on `ARCHITECTURE.md`, `format_docs.py` will deterministically:
+
 1. Format each referenced `docs/<module>.md` file in place on disk (keeping `docs/<module>.md` in the repo with valid `../src/...` links).
 2. Expand every `<!-- INCLUDE: docs/<module>.md -->` block verbatim into `ARCHITECTURE.md` (wrapped in idempotent `<!-- BEGIN INCLUDE: ... -->` / `<!-- END INCLUDE: ... -->` markers so future re-runs cleanly refresh the stitched sections).
 3. Shift the heading levels of the stitched copy so `# 5.X ...` becomes `### 5.X ...` and `## ...` becomes `#### ...` inside `ARCHITECTURE.md`.
