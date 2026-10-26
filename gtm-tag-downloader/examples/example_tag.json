@@ -1,0 +1,39 @@
+{
+  "path": "accounts/2046984759/containers/7951148/workspaces/273/tags/2",
+  "accountId": "2046984759",
+  "containerId": "7951148",
+  "workspaceId": "273",
+  "tagId": "2",
+  "name": "Facebook Pixel Base Code",
+  "type": "html",
+  "notes": "This is the Facebook page view pixel for the UK Facebook account.",
+  "parameter": [
+    {
+      "type": "template",
+      "key": "html",
+      "value": "<!-- Facebook Pixel Code -->\n<script>\n  !function(f,b,e,v,n,t,s)\n  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n  n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t,s)}(window, document,'script',\n  'https://connect.facebook.net/en_US/fbevents.js');\n  fbq('init', '582357325187392');\n  fbq('track', 'PageView');\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\n  src=\"https://www.facebook.com/tr?id=582357325187392&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Facebook Pixel Code -->\n"
+    },
+    {
+      "type": "boolean",
+      "key": "supportDocumentWrite",
+      "value": "false"
+    }
+  ],
+  "fingerprint": "1790262329262",
+  "firingTriggerId": [
+    "2147479553"
+  ],
+  "blockingTriggerId": [
+    "57",
+    "148"
+  ],
+  "tagFiringOption": "oncePerLoad",
+  "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/2046984759/containers/7951148/workspaces/273/tags/2?apiLink=tag",
+  "paused": true,
+  "monitoringMetadata": {
+    "type": "map"
+  },
+  "consentSettings": {
+    "consentStatus": "notSet"
+  }
+}

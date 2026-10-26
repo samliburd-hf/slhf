@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Output tags / artifacts
+tags/
+
+# Editors & IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
