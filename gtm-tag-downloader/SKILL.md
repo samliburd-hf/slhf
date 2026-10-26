@@ -27,6 +27,7 @@ All agents executing this skill MUST strictly adhere to the following directives
 3. **Strict Read-Only MCP Calls**: Use ONLY `get` and `list` operations on `gtm-mcp-server` (`gtm_tag`, `gtm_trigger`, `gtm_variable`). NEVER execute mutating operations (`create`, `update`, `remove`, `revert`).
 4. **Rate Limit Defense**: Use `action: "list"` with pagination (`itemsPerPage: 20`) for batch variable lookups rather than issuing individual queries.
 5. **Persistence & Presentation**: Save artifacts under `tags/` formatted with 2-space indented JSON, and present results using clickable `file://` links.
+6. **No Secrets Logging**: Never output, save, or commit authentication tokens, private pixels, or client PII.
 
 ---
 
