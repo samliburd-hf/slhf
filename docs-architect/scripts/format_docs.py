@@ -29,6 +29,7 @@ Responsibilities:
 
 from __future__ import annotations
 
+import argparse
 import os
 import re
 import sys
@@ -629,16 +630,26 @@ def process_file(file_path: Path) -> bool:
     return True
 
 
-def main() -> None:
-    if len(sys.argv) < 2:
-        print(
-            "Usage: uv run python format_docs.py <path_to_markdown_file> [<more_files.md> ...]",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="format_docs.py",
+        description="Deterministic post-processor, module stitcher, and validator for docs-architect.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "files",
+        nargs="+",
+        type=Path,
+        metavar="FILE",
+        help="One or more Markdown files to format, stitch, and validate (e.g., docs/*.md ARCHITECTURE.md).",
+    )
+    return parser.parse_args()
 
-    for arg in sys.argv[1:]:
-        path = Path(arg)
+
+def main() -> None:
+    args = parse_args()
+
+    for path in args.files:
         if not path.exists():
             print(f"Error: {path} not found.", file=sys.stderr)
             sys.exit(1)
